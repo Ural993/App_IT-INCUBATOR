@@ -14,10 +14,8 @@ function App() {
         <Header />
         <Navbar />
         <div className='app-wrapper-content'>
-          {/* <Profile /> */}
           <Route path='/profile' component={Profile} />
           <Route path='/dialogs' component={Dialogs} />
-          {/* <Dialogs /> */}
         </div>
         <Footer />
       </div>
