@@ -14,29 +14,8 @@
   padding: 0 10px;
 }
 
-.header {
-  grid-area: h;
-  background-color: green;
-
-}
-
-.nav {
-  grid-area: n;
-  background-color: gray;
-
-}
-
-.content {
+.app-wrapper-content {
   grid-area: c;
   background-color: blue;
-}
 
-.avatar img {
-  width: 100px;
-  height: 100px;
-}
-
-.footer {
-  grid-area: f;
-  background-color: black;
 }

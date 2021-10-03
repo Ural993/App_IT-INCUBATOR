@@ -1,31 +1,27 @@
 import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
+import Header from './components/Header/Header';
+import Navbar from './components/Navbar/Navbar';
+import Profile from './components/Profile/Profile';
+import Footer from './components/Footer/Footer';
+import Dialogs from './components/Dialogs/Dialogs';
 
 function App() {
   return (
-    <div className="app-wrapper">
-      <header className='header'>
-        Header
-      </header>
-      <nav className='nav'>
-        <div className="container">
-          <div><a href="#">Profile</a></div>
-          <div><a href="#">Messages</a></div>
-          <div><a href="#">News</a></div>
-          <div><a href="#">Musics</a></div>
-          <div><a href="#">Settings</a></div>
+    <BrowserRouter>
+      <div className="app-wrapper">
+        <Header />
+        <Navbar />
+        <div className='app-wrapper-content'>
+          {/* <Profile /> */}
+          <Route path='/profile' component={Profile} />
+          <Route path='/dialogs' component={Dialogs} />
+          {/* <Dialogs /> */}
         </div>
-      </nav>
-      <div className="content">
-        <div className='avatar'>
-          <img src="https://vraki.net/sites/default/files/inline/images/1_42.jpg" alt="" />
-        </div>
+        <Footer />
       </div>
-      <footer className='footer'>
-        Footer
-      </footer>
-
-    </div>
+    </BrowserRouter>
   );
 }
 
