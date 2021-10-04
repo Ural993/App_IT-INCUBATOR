@@ -3,3 +3,12 @@
     background-color: gray;
 
 }
+
+.nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav a.active {
+    color: gold;
+}
