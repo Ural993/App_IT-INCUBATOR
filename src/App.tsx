@@ -7,15 +7,16 @@ import Profile from './components/Profile/Profile';
 import Footer from './components/Footer/Footer';
 import Dialogs from './components/Dialogs/Dialogs';
 
-function App() {
+function App(props: any) {
+
   return (
     <BrowserRouter>
       <div className="app-wrapper">
         <Header />
         <Navbar />
         <div className='app-wrapper-content'>
-          <Route path='/profile' component={Profile} />
-          <Route exact path='/dialogs' component={Dialogs} />
+          <Route path='/profile' render={() => <Profile posts={props.posts} />} />
+          <Route exact path='/dialogs' render={() => <Dialogs dialogs={props.dialogs} messages={props.messages} />} />
         </div>
         <Footer />
       </div>

@@ -2,7 +2,8 @@ import React from 'react';
 import s from './MyPosts.module.css'
 import Post from './Post/Post';
 
-export default function MyPosts() {
+export default function MyPosts(props: any) {
+    let postsMap = props.posts.map((p: any) => <Post post={p.post} />)
     return (
         <div>
             my posts
@@ -11,7 +12,7 @@ export default function MyPosts() {
                 <button>Add post</button>
             </div>
             <div className={s.posts}>
-                <Post />
+                {postsMap}
             </div>
         </div>
     )
