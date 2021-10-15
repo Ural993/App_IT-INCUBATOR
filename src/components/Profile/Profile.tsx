@@ -7,7 +7,7 @@ export default function Profile(props: any) {
     return (
         <div>
             <ProfileInfo />
-            <MyPosts posts={props.posts} />
+            <MyPosts profilePage={props.profilePage} dispatch={props.dispatch} />
         </div>
     )
 }
