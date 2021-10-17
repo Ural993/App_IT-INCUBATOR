@@ -3,9 +3,9 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
-import Profile from './components/Profile/Profile';
 import Footer from './components/Footer/Footer';
 import Dialogs from './components/Dialogs/Dialogs';
+import ProfileContainer from './components/Profile/ProfileContainer';
 
 function App(props: any) {
   return (
@@ -14,8 +14,8 @@ function App(props: any) {
         <Header />
         <Navbar />
         <div className='app-wrapper-content'>
-          <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage} dispatch={props.dispatch} />} />
-          <Route exact path='/dialogs' render={() => <Dialogs dialogs={props.dialogs} messages={props.messages} />} />
+          <Route path='/profile' render={() => <ProfileContainer />} />
+          {/* <Route exact path='/dialogs' render={() => <Dialogs dialogs={props.state.dialogsPage} messages={props.messages} />} /> */}
         </div>
         <Footer />
       </div>

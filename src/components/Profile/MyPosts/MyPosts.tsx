@@ -4,15 +4,18 @@ import s from './MyPosts.module.css'
 import Post from './Post/Post';
 
 export default function MyPosts(props: any) {
+    // debugger
     let postsMap = props.profilePage.posts.map((p: any) => <Post post={p.post} />)
     let myRef: any = React.createRef();
 
     function onButtonClick() {
-        props.dispatch(addPostActionCreator())
+        props.addPost()
     }
 
     function onPostChange(e: any) {
-        props.dispatch(updateNewPostTextActionCreator(e.target.value))
+        console.log(e.target.value)
+
+        props.updateNewPostText(e.target.value)
     }
 
     return (
