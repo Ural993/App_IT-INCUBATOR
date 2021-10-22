@@ -4,8 +4,8 @@ import './App.css';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
-import Dialogs from './components/Dialogs/Dialogs';
 import ProfileContainer from './components/Profile/ProfileContainer';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 
 function App(props: any) {
   return (
@@ -15,7 +15,7 @@ function App(props: any) {
         <Navbar />
         <div className='app-wrapper-content'>
           <Route path='/profile' render={() => <ProfileContainer />} />
-          {/* <Route exact path='/dialogs' render={() => <Dialogs dialogs={props.state.dialogsPage} messages={props.messages} />} /> */}
+          <Route exact path='/dialogs' render={() => <DialogsContainer />} />
         </div>
         <Footer />
       </div>

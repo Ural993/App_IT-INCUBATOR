@@ -4,7 +4,7 @@ import MyPosts from './MyPosts/MyPosts';
 import s from './Profile.module.css'
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import { addPostActionCreator, updateNewPostTextActionCreator } from '../../redux/profile-reducer';
-import { AppSteteType } from '../../redux/redux-store';
+import { AppStateType } from '../../redux/redux-store';
 
 
 function Profile(props: any) {
@@ -16,7 +16,7 @@ function Profile(props: any) {
         </div>
     )
 }
-let MapStateToProps = (state: AppSteteType) => {
+let MapStateToProps = (state: AppStateType) => {
     return ({
         profilePage: state.profilePage
     }
