@@ -1,6 +1,8 @@
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 
 type LocationType = {
     city: string
@@ -9,9 +11,12 @@ type LocationType = {
 export type UserType = {
     id: number
     followed: boolean
-    fullName: string
+    name: string
     age: number
-    photoUrl: string
+    photos: {
+        small: string
+        large: string
+    }
     status: string
     location: {
         city: string
@@ -20,15 +25,22 @@ export type UserType = {
 }
 type initialStateType = {
     users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
 let initialState: initialStateType = {
     users: [
-        { id: 1, followed: true, fullName: 'Nik', age: 14, photoUrl: 'https://pixelbox.ru/wp-content/uploads/2021/05/ava-vk-animal-91.jpg', status: 'I like drive', location: { city: 'Moscow', country: 'Russia' } },
-        { id: 2, followed: false, fullName: 'Solo', age: 27, photoUrl: 'https://pixelbox.ru/wp-content/uploads/2021/05/ava-vk-animal-91.jpg', status: 'I am love Susen', location: { city: 'Orel', country: 'Russia' } },
-        { id: 3, followed: true, fullName: 'Dimich', age: 33, photoUrl: 'https://pixelbox.ru/wp-content/uploads/2021/05/ava-vk-animal-91.jpg', status: 'I like programming', location: { city: 'Minsk', country: 'Belarus' } },
+        // { id: 1, followed: true, fullName: 'Nik', age: 14, photoUrl: 'https://pixelbox.ru/wp-content/uploads/2021/05/ava-vk-animal-91.jpg', status: 'I like drive', location: { city: 'Moscow', country: 'Russia' } },
+        // { id: 2, followed: false, fullName: 'Solo', age: 27, photoUrl: 'https://pixelbox.ru/wp-content/uploads/2021/05/ava-vk-animal-91.jpg', status: 'I am love Susen', location: { city: 'Orel', country: 'Russia' } },
+        // { id: 3, followed: true, fullName: 'Dimich', age: 33, photoUrl: 'https://pixelbox.ru/wp-content/uploads/2021/05/ava-vk-animal-91.jpg', status: 'I like programming', location: { city: 'Minsk', country: 'Belarus' } },
 
-    ]
+    ],
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 1,
+
 }
 
 const usersReducer = (state = initialState, action: any): initialStateType => {
@@ -54,7 +66,13 @@ const usersReducer = (state = initialState, action: any): initialStateType => {
             }
         }
         case SET_USERS: {
-            return { ...state, users: [...state.users, ...action.users] }
+            return { ...state, users: action.users }
+        }
+        case SET_CURRENT_PAGE: {
+            return { ...state, currentPage: action.currentPage }
+        }
+        case SET_TOTAL_USERS_COUNT: {
+            return { ...state, totalUsersCount: action.totalUsersCount }
         }
         default: return state
     }
@@ -72,5 +90,7 @@ type UnfollowACType = {
 export const followAC = (userId: number): FollowACType => ({ type: FOLLOW, userId })
 export const unfollowAC = (userId: number): UnfollowACType => ({ type: UNFOLLOW, userId })
 export const setUsersAC = (users: UserType) => ({ type: SET_USERS, users })
+export const setCurrentPageAC = (currentPage: number) => ({ type: SET_CURRENT_PAGE, currentPage })
+export const setTotalUsersCountAC = (totalUsersCount: number) => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount })
 
 export default usersReducer;
