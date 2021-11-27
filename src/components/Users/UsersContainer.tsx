@@ -1,40 +1,40 @@
-
 import axios from 'axios'
 import React from 'react'
-import { connect } from 'react-redux'
-import { AppStateType } from '../../redux/redux-store'
+import {connect} from 'react-redux'
+import {Dispatch} from 'redux'
+import {AppStateType} from '../../redux/redux-store'
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    toggleIsFetchingAC,
-    unfollowAC,
+    follow, initialUsersStateType,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleIsFetching,
+    unfollow,
     UserType
 } from '../../redux/users-reducer'
-import { Preloader } from '../Common/Preloader/Preloader'
-import { Users } from './Users'
+import {Preloader} from '../Common/Preloader/Preloader'
+import {Users} from './Users'
 
 
-type MSTPType = {
-    users: Array<UserType>
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    isFetching:boolean
-}
+// type MSTPType = {
+//     users: Array<UserType>
+//     pageSize: number
+//     totalUsersCount: number
+//     currentPage: number
+//     isFetching:boolean
+// }
 
 type MDTPType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    setUsers: (users: any) => void
+    setUsers: (users: Array<UserType>) => void
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
 }
-type PropsType = MSTPType & MDTPType
+type PropsType = initialUsersStateType & MDTPType
 
- class UsersAPIComponent extends React.Component<PropsType> {
+class UsersAPIComponent extends React.Component<PropsType> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
@@ -44,6 +44,7 @@ type PropsType = MSTPType & MDTPType
                 this.props.setTotalUsersCount(response.data.totalCount)
             })
     }
+
     sentCurrentPageHandler = (currentPage: number) => {
         this.props.setCurrentPage(currentPage)
         this.props.toggleIsFetching(true)
@@ -58,11 +59,11 @@ type PropsType = MSTPType & MDTPType
     render() {
         return (
             <>
-            {this.props.isFetching ? <Preloader/> : null}
-            <Users users={this.props.users} pageSize={this.props.pageSize}
-                totalUsersCount={this.props.totalUsersCount} currentPage={this.props.currentPage}
-                follow={this.props.follow} unfollow={this.props.unfollow}
-                sentCurrentPageHandler={this.sentCurrentPageHandler} />
+                {this.props.isFetching ? <Preloader/> : null}
+                <Users users={this.props.users} pageSize={this.props.pageSize}
+                       totalUsersCount={this.props.totalUsersCount} currentPage={this.props.currentPage}
+                       follow={this.props.follow} unfollow={this.props.unfollow}
+                       sentCurrentPageHandler={this.sentCurrentPageHandler}/>
             </>
         )
 
@@ -70,7 +71,8 @@ type PropsType = MSTPType & MDTPType
 
 
 }
-const MapStateToProps = (state: AppStateType):MSTPType => {
+
+const MapStateToProps = (state: AppStateType): initialUsersStateType => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
@@ -81,18 +83,21 @@ const MapStateToProps = (state: AppStateType):MSTPType => {
     }
 }
 
-const MapDispatchToProps = (dispatch: any):MDTPType  => {
-    return ({
-        follow: (userId: number) => dispatch(followAC(userId)),
-        unfollow: (userId: number) => dispatch(unfollowAC(userId)),
-        setUsers: (users: UserType) => dispatch(setUsersAC(users)),
-        setCurrentPage: (currentPage: number) => dispatch(setCurrentPageAC(currentPage)),
-        setTotalUsersCount: (totalUsersCount: number) => dispatch(setTotalUsersCountAC(totalUsersCount)),
-        toggleIsFetching: (isFetching:boolean)=>dispatch(toggleIsFetchingAC(isFetching))
-    })
-}
+// const MapDispatchToProps = (dispatch: Dispatch):MDTPType  => {
+//     return ({
+//         follow: (userId: number) => dispatch(follow(userId)),
+//         unfollow: (userId: number) => dispatch(unfollow(userId)),
+//         setUsers: (users: Array<UserType>) => dispatch(setUsers(users)),
+//         setCurrentPage: (currentPage: number) => dispatch(setCurrentPage(currentPage)),
+//         setTotalUsersCount: (totalUsersCount: number) => dispatch(setTotalUsersCount(totalUsersCount)),
+//         toggleIsFetching: (isFetching:boolean)=>dispatch(toggleIsFetching(isFetching))
+//     })
+//}
 
-const UsersContainer = connect<MSTPType, MDTPType, {},AppStateType >(MapStateToProps, MapDispatchToProps)(UsersAPIComponent)
+const UsersContainer = connect<initialUsersStateType, MDTPType, {}, AppStateType>(MapStateToProps, {
+    follow, unfollow,
+    setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching
+})(UsersAPIComponent)
 
 
 export default UsersContainer

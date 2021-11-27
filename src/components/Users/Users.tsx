@@ -1,7 +1,8 @@
 import react from 'react'
-import { UserType } from '../../redux/users-reducer'
+import {UserType} from '../../redux/users-reducer'
 import s from './Users.module.css'
 import userPhoto from '../../assets/img/user.jpg'
+import {NavLink} from 'react-router-dom'
 
 type PropsType = {
     users: Array<UserType>
@@ -25,14 +26,18 @@ export const Users = (props: PropsType) => {
         <div>
             <div>
                 {pages.map(p => {
-                    return <span onClick={() => props.sentCurrentPageHandler(p)} className={props.currentPage === p ? s.selectedPage : ''}>{p}</span>
+                    return (
+                        <span onClick={() => props.sentCurrentPageHandler(p)}
+                              className={props.currentPage === p ? s.selectedPage : ''}>{p}</span>)
                 })}
             </div>
             {
                 props.users.map(u => {
                     return <div className={s.users}>
                         <div className={s.user_img}>
-                            <img src={u.photos.small != null ? u.photos.small : userPhoto} alt="#" />
+                            <NavLink to={'/profile/' + u.id}>
+                                <img src={u.photos.small != null ? u.photos.small : userPhoto} alt="#"/>
+                            </NavLink>
                         </div>
                         <div className={'user_contant'}>
                             <div className="name">{u.name}</div>

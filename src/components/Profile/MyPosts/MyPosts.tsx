@@ -1,10 +1,18 @@
 import React from 'react';
-import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/profile-reducer';
+import { InitialProfileStateType} from '../../../redux/profile-reducer';
 import s from './MyPosts.module.css'
 import Post from './Post/Post';
 
-export default function MyPosts(props: any) {
-    // debugger
+type PropsType = {
+    profilePage: InitialProfileStateType
+    addPost: () => void
+    updateNewPostText: (text: any) => void
+}
+
+
+
+export default function MyPosts(props: PropsType) {
+    //debugger
     let postsMap = props.profilePage.posts.map((p: any) => <Post post={p.post} />)
     let myRef: any = React.createRef();
 
