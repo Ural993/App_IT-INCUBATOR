@@ -10,22 +10,31 @@ import {AppStateType} from '../../redux/redux-store';
 import {Profile} from "./Profile";
 import axios from "axios";
 import {ProfileType} from "../Common/types/types";
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 
+type PathParamType = {
+    userId: string
+}
 type MSTPType = {
     profilePage: InitialProfileStateType
 }
 type MDTPType = {
     addPost: () => void
     updateNewPostText: (text: any) => void
-    setUserProfile:(profile:ProfileType)=>void
+    setUserProfile: (profile: ProfileType) => void
 
 }
-type PropsType = MSTPType & MDTPType
+type PropsType = RouteComponentProps<PathParamType> & OwnPropsType
+type OwnPropsType = MSTPType & MDTPType
 
 class ProfileContainerAPI extends React.Component<PropsType> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
-            .then(response =>{
+        let userId = this.props.match.params.userId
+        if (!userId) {
+            userId = '1143'
+        }
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+            .then(response => {
 
                 this.props.setUserProfile(response.data)
             })
@@ -51,7 +60,11 @@ let MapStateToProps = (state: AppStateType): MSTPType => {
 //         updateNewPostText: (text: any) => dispatch(updateNewPostTextActionCreator(text))
 //     })
 // }
+let ProfileContainerAPIWithRouter = withRouter(ProfileContainerAPI)
 
-
-export const ProfileContainer = connect(MapStateToProps, {addPost,updateNewPostText,setUserProfile})(ProfileContainerAPI)
+export const ProfileContainer = connect(MapStateToProps, {
+    addPost,
+    updateNewPostText,
+    setUserProfile
+})(ProfileContainerAPIWithRouter)
 

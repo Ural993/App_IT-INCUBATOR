@@ -12,12 +12,18 @@ export const ProfileInfo=(props:PropsType)=> {
     return (
         <div>
             <div className={s.avatar}>
-                <img src="https://vraki.net/sites/default/files/inline/images/1_42.jpg" alt="" />
+                <img src={props.profile.photos.small}/>
             </div>
             <div>
-                <img src={props.profile.photos.small}/>
-                ava+disctiptions
+                <h3>{props.profile.fullName}</h3>
+                <hr/>
+                <div>Profile in VK: {props.profile.contacts.vk}</div>
+                <div>Profile in facebook: {props.profile.contacts.facebook}</div>
+                <div>Profile in instagram: {props.profile.contacts.instagram}</div>
+                <div>Profile in github: {props.profile.contacts.github}</div>
+                <div>Profile in twitter: {props.profile.contacts.twitter}</div>
             </div>
+            <hr/>
         </div>
     )
 }
