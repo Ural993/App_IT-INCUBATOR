@@ -12,17 +12,12 @@ type PropsType = {
 
 
 export default function MyPosts(props: PropsType) {
-    //debugger
-    let postsMap = props.profilePage.posts.map((p: any) => <Post post={p.post} />)
-    let myRef: any = React.createRef();
 
     function onButtonClick() {
         props.addPost()
     }
 
     function onPostChange(e: any) {
-        console.log(e.target.value)
-
         props.updateNewPostText(e.target.value)
     }
 
@@ -34,7 +29,7 @@ export default function MyPosts(props: PropsType) {
                 <button onClick={onButtonClick}>Add post</button>
             </div>
             <div className={s.posts}>
-                {postsMap}
+                {props.profilePage.posts.map(p => (<Post {...p}  />))}
             </div>
         </div>
     )

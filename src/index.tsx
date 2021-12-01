@@ -5,7 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { store } from './redux/redux-store';
 import { Provider } from 'react-redux';
-import { stat } from 'fs';
 let rerenderEntierTree = () => {
   ReactDOM.render(
     <Provider store={store}>

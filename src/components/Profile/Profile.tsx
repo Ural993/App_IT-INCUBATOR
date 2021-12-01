@@ -1,6 +1,5 @@
 import React from 'react';
 import MyPosts from './MyPosts/MyPosts';
-import s from './Profile.module.css'
 import {InitialProfileStateType} from "../../redux/profile-reducer";
 import { ProfileInfo } from './ProfileInfo/ProfileInfo';
 

@@ -1,5 +1,3 @@
-import { stat } from "fs"
-
 type InitialStateType = {
     dialogs: Array<DialogsType>
     messages: Array<MessageType>

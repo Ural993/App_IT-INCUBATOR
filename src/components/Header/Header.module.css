@@ -4,3 +4,9 @@
     height: 50px;
 
 }
+
+.login {
+    float: right;
+    padding-top: 15px;
+    padding-right: 10px;
+}

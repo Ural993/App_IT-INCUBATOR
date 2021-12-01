@@ -12,16 +12,16 @@ export const ProfileInfo=(props:PropsType)=> {
     return (
         <div>
             <div className={s.avatar}>
-                <img src={props.profile.photos.small}/>
+                <img alt={'#'} src={props.profile.photos.small}/>
             </div>
             <div>
                 <h3>{props.profile.fullName}</h3>
                 <hr/>
-                <div>Profile in VK: {props.profile.contacts.vk}</div>
-                <div>Profile in facebook: {props.profile.contacts.facebook}</div>
-                <div>Profile in instagram: {props.profile.contacts.instagram}</div>
-                <div>Profile in github: {props.profile.contacts.github}</div>
-                <div>Profile in twitter: {props.profile.contacts.twitter}</div>
+                <div>Profile in VK:<a href='#'>{props.profile.contacts.vk}</a></div>
+                <div>Profile in facebook: <a href={props.profile.contacts.facebook} target="_blank"  rel="noreferrer">{props.profile.contacts.facebook}</a></div>
+                <div>Profile in instagram: <a href={props.profile.contacts.instagram} target="_blank"  rel="noreferrer">{props.profile.contacts.instagram}</a></div>
+                <div>Profile in github:<a href={props.profile.contacts.github} target="_blank"  rel="noreferrer"> {props.profile.contacts.github} </a></div>
+                <div>Profile in twitter:<a href={props.profile.contacts.twitter} target="_blank"  rel="noreferrer"> {props.profile.contacts.twitter}</a></div>
             </div>
             <hr/>
         </div>
