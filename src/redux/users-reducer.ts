@@ -5,6 +5,7 @@ const SET_USERS = 'SET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
 
 export type UserType = {
     id: number
@@ -19,6 +20,7 @@ export type initialUsersStateType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingProgress: Array<number>
 }
 
 let initialState: initialUsersStateType = {
@@ -32,6 +34,7 @@ let initialState: initialUsersStateType = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
+    followingProgress: [],
 
 }
 
@@ -69,11 +72,14 @@ export const usersReducer = (state = initialState, action: ActionsType): initial
         case TOGGLE_IS_FETCHING: {
             return {...state, isFetching: action.isFetching}
         }
+        case TOGGLE_IS_FOLLOWING_PROGRESS: {
+            return {...state, followingProgress:action.followingProgress?[...state.followingProgress, action.userId]: [...state.followingProgress.filter(id => id != action.userId)]}
+        }
         default:
             return state
     }
 }
-type ActionsType = FollowACType|UnfollowACType|SetUsersACType|SetCurrentPageACType|SetTotalUsersCountACType|ToggleIsFetchingACType
+type ActionsType = FollowACType|UnfollowACType|SetUsersACType|SetCurrentPageACType|SetTotalUsersCountACType|ToggleIsFetchingACType|ToggleIsFollowingProgressACType
 
 type FollowACType = {
     type: typeof FOLLOW
@@ -105,4 +111,10 @@ type ToggleIsFetchingACType = {
     isFetching: boolean
 }
 export const toggleIsFetching = (isFetching:boolean):ToggleIsFetchingACType => ({ type: TOGGLE_IS_FETCHING, isFetching})
+type ToggleIsFollowingProgressACType = {
+    type: typeof TOGGLE_IS_FOLLOWING_PROGRESS
+    followingProgress: boolean
+    userId: number
+}
+export const toggleIsFollowingProgress = (followingProgress:boolean, userId:number):ToggleIsFollowingProgressACType => ({ type: TOGGLE_IS_FOLLOWING_PROGRESS, followingProgress, userId})
 
