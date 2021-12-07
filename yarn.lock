@@ -9556,24 +9556,15 @@
     "indent-string" "^4.0.0"
     "strip-indent" "^3.0.0"
 
-"redux@*":
-  "integrity" "sha512-hZQZdDEM25UY2P493kPYuKqviVwZ58lEmGQNeQ+gXa+U0gYPUBf7NKYazbe3m+bs/DzM/ahN12DbF+NG8i0CWw=="
-  "resolved" "https://registry.npmjs.org/redux/-/redux-4.1.1.tgz"
-  "version" "4.1.1"
-  dependencies:
-    "@babel/runtime" "^7.9.2"
+"redux-thunk@^2.4.1", "redux-thunk@>=2.3.x":
+  "integrity" "sha512-OOYGNY5Jy2TWvTL1KgAlVy6dcx3siPJ1wTq741EPyUKfn6W6nChdICjZwCd0p8AZBs5kWpZlbkXW2nE/zjUa+Q=="
+  "resolved" "https://registry.npmjs.org/redux-thunk/-/redux-thunk-2.4.1.tgz"
+  "version" "2.4.1"
 
-"redux@^4.0.0":
-  "integrity" "sha512-hZQZdDEM25UY2P493kPYuKqviVwZ58lEmGQNeQ+gXa+U0gYPUBf7NKYazbe3m+bs/DzM/ahN12DbF+NG8i0CWw=="
-  "resolved" "https://registry.npmjs.org/redux/-/redux-4.1.1.tgz"
-  "version" "4.1.1"
-  dependencies:
-    "@babel/runtime" "^7.9.2"
-
-"redux@^4.1.1":
-  "integrity" "sha512-hZQZdDEM25UY2P493kPYuKqviVwZ58lEmGQNeQ+gXa+U0gYPUBf7NKYazbe3m+bs/DzM/ahN12DbF+NG8i0CWw=="
-  "resolved" "https://registry.npmjs.org/redux/-/redux-4.1.1.tgz"
-  "version" "4.1.1"
+"redux@*", "redux@^4", "redux@^4.0.0", "redux@^4.1.2", "redux@>=4.x":
+  "integrity" "sha512-SH8PglcebESbd/shgf6mii6EIoRM0zrQyjcuQ+ojmfxjTtE0z9Y8pa62iA/OJ58qjP6j27uyW4kUF4jl/jd6sw=="
+  "resolved" "https://registry.npmjs.org/redux/-/redux-4.1.2.tgz"
+  "version" "4.1.2"
   dependencies:
     "@babel/runtime" "^7.9.2"
 
@@ -11108,6 +11099,16 @@
   "integrity" "sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c="
   "resolved" "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz"
   "version" "0.0.6"
+
+"typescript-fsa-redux-thunk@^2.10.2":
+  "integrity" "sha512-hLDsTSWt9xsQYArdLFOe+YwCH5OJPyf2d6njnAXhZ9y13dBeI+Tc9hx/QT1VZZUWCDdRa19DCqFIFInwcbej8A=="
+  "resolved" "https://registry.npmjs.org/typescript-fsa-redux-thunk/-/typescript-fsa-redux-thunk-2.10.2.tgz"
+  "version" "2.10.2"
+
+"typescript-fsa@>=3.x":
+  "integrity" "sha512-xiXAib35i0QHl/+wMobzPibjAH5TJLDj+qGq5jwVLG9qR4FUswZURBw2qihBm0m06tHoyb3FzpnJs1GRhRwVag=="
+  "resolved" "https://registry.npmjs.org/typescript-fsa/-/typescript-fsa-3.0.0.tgz"
+  "version" "3.0.0"
 
 "typescript@^3.2.1 || ^4", "typescript@^4.4.3", "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta":
   "integrity" "sha512-4xfscpisVgqqDfPaJo5vkd+Qd/ItkoagnHpufr+i2QCHBsNYp+G7UAoyFl8aPtx879u38wPV65rZ8qbGZijalA=="

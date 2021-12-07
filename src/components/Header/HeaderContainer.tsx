@@ -15,7 +15,9 @@ type PropsType = {
 class HeaderContainer extends React.Component<PropsType> {
     componentDidMount() {
         axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`,
-            {withCredentials: true})
+            {withCredentials: true,
+                headers: {'API-KEY': 'fe88c94b-7e3d-4776-912d-349e13ec1b3a'}},
+            )
             .then(response => {
                 if (response.data.resultCode === 0) {
                     this.props.setUserData(response.data.data)

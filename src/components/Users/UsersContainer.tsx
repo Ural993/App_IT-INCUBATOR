@@ -1,9 +1,9 @@
-import axios from 'axios'
 import React from 'react'
 import {connect} from 'react-redux'
+import { usersAPI } from '../../api/api'
 import {AppStateType} from '../../redux/redux-store'
 import {
-    follow, initialUsersStateType,
+    follow, getUsers, initialUsersStateType,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
@@ -13,7 +13,7 @@ import {
 } from '../../redux/users-reducer'
 import {Preloader} from '../Common/Preloader/Preloader'
 import {Users} from './Users'
-import {usersAPI} from "../../api/api";
+
 
 
 // type MSTPType = {
@@ -32,17 +32,19 @@ type MDTPType = {
     setTotalUsersCount: (totalUsersCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
     toggleIsFollowingProgress: (followingProgress:boolean, userId:number) => void
+    getUsers:(currentPage:number, pageSize:number)=>void
 }
 type PropsType = initialUsersStateType & MDTPType
 
 class UsersAPIComponent extends React.Component<PropsType> {
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize ).then((data: any) => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setTotalUsersCount(data.totalCount)
-            })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        // this.props.toggleIsFetching(true)
+        // usersAPI.getUsers(this.props.currentPage, this.props.pageSize ).then((data: any) => {
+        //         this.props.toggleIsFetching(false)
+        //         this.props.setUsers(data.items)
+        //         this.props.setTotalUsersCount(data.totalCount)
+        //     })
     }
 
     sentCurrentPageHandler = (currentPage: number) => {
@@ -99,9 +101,8 @@ const MapStateToProps = (state: AppStateType): initialUsersStateType => {
 //}
 
 const UsersContainer = connect<initialUsersStateType, MDTPType, {}, AppStateType>(MapStateToProps, {
-    follow, unfollow,
-    setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleIsFollowingProgress
-})(UsersAPIComponent)
+    follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching, 
+    toggleIsFollowingProgress, getUsers})(UsersAPIComponent)
 
 
 export default UsersContainer
