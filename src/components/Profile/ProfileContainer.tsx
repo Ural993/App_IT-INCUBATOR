@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import React from 'react';
 import {
-    addPost,
+    addPost, getProfile,
     InitialProfileStateType,
     setUserProfile,
     updateNewPostText
@@ -11,6 +11,7 @@ import {Profile} from "./Profile";
 import axios from "axios";
 import {ProfileType} from "../Common/types/types";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {usersAPI} from "../../api/api";
 
 type PathParamType = {
     userId: string
@@ -22,7 +23,7 @@ type MDTPType = {
     addPost: () => void
     updateNewPostText: (text: any) => void
     setUserProfile: (profile: ProfileType) => void
-
+    getProfile:(userId:string) => void
 }
 type PropsType = RouteComponentProps<PathParamType> & OwnPropsType
 type OwnPropsType = MSTPType & MDTPType
@@ -33,11 +34,7 @@ class ProfileContainerAPI extends React.Component<PropsType> {
         if (!userId) {
             userId = '1143'
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(response => {
-
-                this.props.setUserProfile(response.data)
-            })
+        this.props.getProfile(userId)
     }
 
     render() {
@@ -65,6 +62,6 @@ let ProfileContainerAPIWithRouter = withRouter(ProfileContainerAPI)
 export const ProfileContainer = connect(MapStateToProps, {
     addPost,
     updateNewPostText,
-    setUserProfile
+    setUserProfile, getProfile
 })(ProfileContainerAPIWithRouter)
 

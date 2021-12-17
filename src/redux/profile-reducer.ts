@@ -1,5 +1,7 @@
-import { v1 } from "uuid";
+import {v1} from "uuid";
 import {ProfileType} from "../components/Common/types/types";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 
 let ADD_POST = 'ADD_POST'
@@ -7,7 +9,7 @@ let UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
 let SET_USER_PROFILE = 'SET_USER_PROFILE'
 type PostType = {
     post: string
-    id:string
+    id: string
 }
 export type InitialProfileStateType = {
     posts: Array<PostType>
@@ -27,10 +29,9 @@ let initialState: InitialProfileStateType = {
 
 export const profileReducer = (state = initialState, action: any): InitialProfileStateType => {
     switch (action.type) {
-        case ADD_POST:{
-            return {...state, posts:[...state.posts, {id:v1(),post:state.newPostText }]}
+        case ADD_POST: {
+            return {...state, posts: [...state.posts, {id: v1(), post: state.newPostText}]}
         }
-
 
 
         case UPDATE_NEW_POST_TEXT: {
@@ -71,3 +72,13 @@ type setUserProfileACType = {
     profile: ProfileType
 }
 export const setUserProfile = (profile: ProfileType): setUserProfileACType => ({type: SET_USER_PROFILE, profile})
+
+export const getProfile = (userId: string) => {
+    return (dispatch: Dispatch) => {
+        usersAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data))
+            })
+    }
+}
+
