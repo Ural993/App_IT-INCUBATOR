@@ -8,16 +8,15 @@ import {
 } from '../../redux/profile-reducer';
 import {AppStateType} from '../../redux/redux-store';
 import {Profile} from "./Profile";
-import axios from "axios";
 import {ProfileType} from "../Common/types/types";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {usersAPI} from "../../api/api";
 
 type PathParamType = {
     userId: string
 }
 type MSTPType = {
     profilePage: InitialProfileStateType
+    isAuth:boolean
 }
 type MDTPType = {
     addPost: () => void
@@ -47,7 +46,8 @@ class ProfileContainerAPI extends React.Component<PropsType> {
 
 let MapStateToProps = (state: AppStateType): MSTPType => {
     return ({
-            profilePage: state.profilePage
+            profilePage: state.profilePage,
+            isAuth: state.auth.isAuth
         }
     )
 }
