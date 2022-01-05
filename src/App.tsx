@@ -3,16 +3,18 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import { ProfileContainer } from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import {Login} from "./components/Login/Login";
+import { DialogsContainer } from './components/Dialogs/DialogsContainer';
+
+type PropsType={
+
+}
 
 
-
-
-function App(props: any) {
+function App(props: PropsType) {
   return (
     <BrowserRouter>
       <div className="app-wrapper">

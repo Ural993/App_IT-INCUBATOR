@@ -1,4 +1,4 @@
-type InitialStateType = {
+export type InitialDialogStateType = {
     dialogs: Array<DialogsType>
     messages: Array<MessageType>
 }
@@ -9,7 +9,7 @@ type DialogsType = {
 type MessageType = {
     message: string
 }
-let initialState: InitialStateType = {
+let initialState: InitialDialogStateType = {
     dialogs: [
         { name: 'Vovs', id: 1 },
         { name: 'Petr', id: 2 },

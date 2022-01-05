@@ -9,20 +9,21 @@ import {
 import {AppStateType} from '../../redux/redux-store';
 import {Profile} from "./Profile";
 import {ProfileType} from "../Common/types/types";
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type PathParamType = {
     userId: string
 }
 type MSTPType = {
     profilePage: InitialProfileStateType
-    isAuth:boolean
+    isAuth: boolean
 }
 type MDTPType = {
     addPost: () => void
     updateNewPostText: (text: any) => void
     setUserProfile: (profile: ProfileType) => void
-    getProfile:(userId:string) => void
+    getProfile: (userId: string) => void
 }
 type PropsType = RouteComponentProps<PathParamType> & OwnPropsType
 type OwnPropsType = MSTPType & MDTPType
@@ -43,7 +44,7 @@ class ProfileContainerAPI extends React.Component<PropsType> {
     }
 }
 
-
+let AuthRedirectComponent = withAuthRedirect(ProfileContainerAPI)
 let MapStateToProps = (state: AppStateType): MSTPType => {
     return ({
             profilePage: state.profilePage,
@@ -51,13 +52,8 @@ let MapStateToProps = (state: AppStateType): MSTPType => {
         }
     )
 }
-// let MapDispatchToProps = (dispatch: any): MDTPType => {
-//     return ({
-//         addPost: () => dispatch(addPostActionCreator()),
-//         updateNewPostText: (text: any) => dispatch(updateNewPostTextActionCreator(text))
-//     })
-// }
-let ProfileContainerAPIWithRouter = withRouter(ProfileContainerAPI)
+
+let ProfileContainerAPIWithRouter = withRouter(AuthRedirectComponent)
 
 export const ProfileContainer = connect(MapStateToProps, {
     addPost,

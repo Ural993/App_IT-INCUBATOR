@@ -12,7 +12,7 @@ type PropsType = {
 }
 export function Profile(props: PropsType) {
 
-    if (!props.isAuth) return <Redirect to={'/login'}/>
+
 
     return (
         <div>
