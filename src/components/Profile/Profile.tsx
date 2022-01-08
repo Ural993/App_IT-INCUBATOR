@@ -6,7 +6,6 @@ import {Redirect} from "react-router-dom";
 
 type PropsType = {
     profilePage: InitialProfileStateType
-    isAuth: boolean
     addPost: () => void
     updateNewPostText: (text: any) => void
 }

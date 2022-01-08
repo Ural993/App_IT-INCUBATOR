@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {
     addPost, getProfile,
     InitialProfileStateType,
@@ -9,15 +9,15 @@ import {
 import {AppStateType} from '../../redux/redux-store';
 import {Profile} from "./Profile";
 import {ProfileType} from "../Common/types/types";
-import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import { compose } from 'redux';
 
 type PathParamType = {
     userId: string
 }
 type MSTPType = {
     profilePage: InitialProfileStateType
-    isAuth: boolean
 }
 type MDTPType = {
     addPost: () => void
@@ -44,20 +44,16 @@ class ProfileContainerAPI extends React.Component<PropsType> {
     }
 }
 
-let AuthRedirectComponent = withAuthRedirect(ProfileContainerAPI)
 let MapStateToProps = (state: AppStateType): MSTPType => {
     return ({
             profilePage: state.profilePage,
-            isAuth: state.auth.isAuth
         }
     )
 }
 
-let ProfileContainerAPIWithRouter = withRouter(AuthRedirectComponent)
 
-export const ProfileContainer = connect(MapStateToProps, {
+export default compose <ComponentType>(connect(MapStateToProps, {
     addPost,
     updateNewPostText,
     setUserProfile, getProfile
-})(ProfileContainerAPIWithRouter)
-
+}), withRouter, withAuthRedirect)(ProfileContainerAPI)
