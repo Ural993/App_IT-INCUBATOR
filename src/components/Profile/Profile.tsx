@@ -8,6 +8,8 @@ type PropsType = {
     profilePage: InitialProfileStateType
     addPost: () => void
     updateNewPostText: (text: any) => void
+    updateStatus: (status: string) => void
+    status:string
 }
 export function Profile(props: PropsType) {
 
@@ -15,7 +17,7 @@ export function Profile(props: PropsType) {
 
     return (
         <div>
-            <ProfileInfo profile = {props.profilePage.profile}/>
+            <ProfileInfo profile = {props.profilePage.profile} status={props.profilePage.status} updateStatus={props.updateStatus}/>
             <MyPosts updateNewPostText={props.updateNewPostText} addPost={props.addPost} profilePage={props.profilePage} />
         </div>
     )

@@ -5,6 +5,8 @@ import {Preloader} from "../../Common/Preloader/Preloader";
 
 type PropsType = {
     profile: ProfileType
+    status:string
+    updateStatus: (status: string) => void
 }
 export const ProfileInfo = (props: PropsType) => {
     if (!props.profile) {
@@ -14,7 +16,7 @@ export const ProfileInfo = (props: PropsType) => {
         <div>
             <div className={s.avatar}>
                 <img alt={'#'} src={props.profile.photos.small}/>
-                <ProfileStatus status={'Hello'}/>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             </div>
             <div>
                 <h3>{props.profile.fullName}</h3>
@@ -35,15 +37,13 @@ export const ProfileInfo = (props: PropsType) => {
 }
 type ProfileStatusType = {
     status: string
+    updateStatus: (status: string) => void
 }
 
 class ProfileStatus extends React.Component<ProfileStatusType, any> {
-    constructor(props:any) {
-        super(props);
-
-    }
     state = {
-        editMode: false
+        editMode: false,
+        status:this.props.status
     }
 
     activateEditMode = () => {
@@ -52,21 +52,28 @@ class ProfileStatus extends React.Component<ProfileStatusType, any> {
             }
         )
     }
-    deactivateEditMode = () => {
+    deactivateEditMode = (e:any) => {
         this.setState({
                 editMode: false
             }
         )
+        this.props.updateStatus(this.state.status)
+    }
+    changeStatus=(e:any)=>{
+        let value = e.currentTarget.value
+        this.setState({
+            status:value
+        })
     }
 
     render() {
         return (
             <div>
                 {this.state.editMode ? <div>
-                        <input  autoFocus onBlur={this.deactivateEditMode} value={this.props.status} type="text"/>
+                        <input  onChange={this.changeStatus} autoFocus onBlur={this.deactivateEditMode} value={this.state.status} type="text"/>
                     </div> :
                     <div>
-                        <span onDoubleClick={this.activateEditMode}>{this.props.status}</span>
+                        <span onDoubleClick={this.activateEditMode}>{this.props.status || '---'} </span>
                     </div>}
             </div>
 
