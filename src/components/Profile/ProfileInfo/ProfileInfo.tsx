@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from './ProfileInfo.module.css'
 import {ProfileType} from "../../Common/types/types";
 import {Preloader} from "../../Common/Preloader/Preloader";
+import {ProfileStatus} from "./ProfileStatus";
 
 type PropsType = {
     profile: ProfileType
@@ -35,50 +36,4 @@ export const ProfileInfo = (props: PropsType) => {
         </div>
     )
 }
-type ProfileStatusType = {
-    status: string
-    updateStatus: (status: string) => void
-}
 
-class ProfileStatus extends React.Component<ProfileStatusType, any> {
-    state = {
-        editMode: false,
-        status:this.props.status
-    }
-
-    activateEditMode = () => {
-        this.setState({
-                editMode: true
-            }
-        )
-    }
-    deactivateEditMode = (e:any) => {
-        this.setState({
-                editMode: false
-            }
-        )
-        this.props.updateStatus(this.state.status)
-    }
-    changeStatus=(e:any)=>{
-        let value = e.currentTarget.value
-        this.setState({
-            status:value
-        })
-    }
-
-    render() {
-        return (
-            <div>
-                {this.state.editMode ? <div>
-                        <input  onChange={this.changeStatus} autoFocus onBlur={this.deactivateEditMode} value={this.state.status} type="text"/>
-                    </div> :
-                    <div>
-                        <span onDoubleClick={this.activateEditMode}>{this.props.status || '---'} </span>
-                    </div>}
-            </div>
-
-        )
-    }
-
-
-}
