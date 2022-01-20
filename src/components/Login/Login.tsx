@@ -6,7 +6,7 @@ type PropsType = {}
 
 export function Login(props: PropsType) {
     const onSubmit = (formData: FormDataType) => {
-console.log(formData)
+
     }
     return (
         <div>

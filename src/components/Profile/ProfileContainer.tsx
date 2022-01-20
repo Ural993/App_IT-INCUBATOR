@@ -4,8 +4,7 @@ import {
     addPost, getProfile,
     getStatus,
     InitialProfileStateType,
-    setUserProfile,
-    updateNewPostText, updateStatus
+    setUserProfile, updateStatus
 } from '../../redux/profile-reducer';
 import {AppStateType} from '../../redux/redux-store';
 import {Profile} from "./Profile";
@@ -22,7 +21,7 @@ type MSTPType = {
     status:string
 }
 type MDTPType = {
-    addPost: () => void
+    addPost: (post:string) => void
     updateNewPostText: (text: any) => void
     setUserProfile: (profile: ProfileType) => void
     getProfile: (userId: string) => void
@@ -60,6 +59,5 @@ let MapStateToProps = (state: AppStateType): MSTPType => {
 
 export default compose <ComponentType>(connect(MapStateToProps, {
     addPost,getStatus,updateStatus,
-    updateNewPostText,
     setUserProfile, getProfile
 }), withRouter, withAuthRedirect)(ProfileContainerAPI)

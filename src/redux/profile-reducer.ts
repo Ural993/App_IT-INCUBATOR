@@ -5,7 +5,6 @@ import {profileAPI, usersAPI} from "../api/api";
 
 
 let ADD_POST = 'ADD_POST'
-let UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
 let SET_USER_PROFILE = 'SET_USER_PROFILE'
 let GET_STATUS = 'GET_STATUS'
 type PostType = {
@@ -33,15 +32,7 @@ let initialState: InitialProfileStateType = {
 export const profileReducer = (state = initialState, action: any): InitialProfileStateType => {
     switch (action.type) {
         case ADD_POST: {
-            return {...state, posts: [...state.posts, {id: v1(), post: state.newPostText}]}
-        }
-
-
-        case UPDATE_NEW_POST_TEXT: {
-            let copyState = {...state}
-
-            copyState.newPostText = action.newText
-            return copyState
+            return {...state, posts: [...state.posts, {id: v1(), post: action.post}]}
         }
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
@@ -58,19 +49,12 @@ export const profileReducer = (state = initialState, action: any): InitialProfil
 }
 type AddPostACType = {
     type: typeof ADD_POST
+    post:string
 }
 
-export function addPost(): AddPostACType {
-    return {type: ADD_POST}
-}
-
-type UpdateNewPostTextACType = {
-    type: typeof UPDATE_NEW_POST_TEXT
-    newText: string
-}
-
-export function updateNewPostText(newText: string): UpdateNewPostTextACType {
-    return ({type: UPDATE_NEW_POST_TEXT, newText})
+export function addPost(post:string): AddPostACType {
+    debugger
+    return {type: ADD_POST, post}
 }
 
 type setUserProfileACType = {
