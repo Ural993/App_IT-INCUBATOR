@@ -3,6 +3,8 @@ import {InitialProfileStateType} from '../../../redux/profile-reducer';
 import s from './MyPosts.module.css'
 import Post from './Post/Post';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLength30, required} from "../../../utils/validators/validators";
+import { Textarea } from '../../Common/FormControls/FormControls';
 
 type PropsType = {
     profilePage: InitialProfileStateType
@@ -13,6 +15,7 @@ export default function MyPosts(props: PropsType) {
     const onSubmit = (value: FormDataType) => {
        props.addPost(value.postText)
     }
+
     return (
         <div>
             my posts
@@ -30,7 +33,7 @@ const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field component={'textarea'} name={'postText'} type="text"/>
+            <Field component={Textarea} name={'postText'} type="text" validate={[required, maxLength30]}/>
             <button>Add post</button>
         </form>
     )

@@ -15,7 +15,7 @@ export type InitialProfileStateType = {
     posts: Array<PostType>
     newPostText: string
     profile: ProfileType
-    status:string
+    status: string
 }
 
 let initialState: InitialProfileStateType = {
@@ -26,34 +26,31 @@ let initialState: InitialProfileStateType = {
     ],
     newPostText: "",
     profile: null,
-    status:'',
+    status: '',
 }
 
 export const profileReducer = (state = initialState, action: any): InitialProfileStateType => {
     switch (action.type) {
         case ADD_POST: {
+            debugger
             return {...state, posts: [...state.posts, {id: v1(), post: action.post}]}
         }
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
         }
-        case GET_STATUS:{
-            return {...state, status:action.status}
+        case GET_STATUS: {
+            return {...state, status: action.status}
         }
-
         default:
             return state
-
     }
-
 }
 type AddPostACType = {
     type: typeof ADD_POST
-    post:string
+    post: string
 }
 
-export function addPost(post:string): AddPostACType {
-    debugger
+export function addPost(post: string): AddPostACType {
     return {type: ADD_POST, post}
 }
 
@@ -62,7 +59,7 @@ type setUserProfileACType = {
     profile: ProfileType
 }
 export const setUserProfile = (profile: ProfileType): setUserProfileACType => ({type: SET_USER_PROFILE, profile})
- const setStatus=(status:string)=>({type:GET_STATUS, status})
+const setStatus = (status: string) => ({type: GET_STATUS, status})
 
 export const getProfile = (userId: string) => {
     return (dispatch: Dispatch) => {
@@ -84,7 +81,7 @@ export const updateStatus = (status: string) => {
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status)
             .then(response => {
-                if(response.data.resultCode === 0){
+                if (response.data.resultCode === 0) {
                     dispatch(setStatus(status))
                 }
             })
