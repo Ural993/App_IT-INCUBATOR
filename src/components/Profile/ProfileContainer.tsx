@@ -19,6 +19,9 @@ type PathParamType = {
 type MSTPType = {
     profilePage: InitialProfileStateType
     status:string
+    userId:string,
+    isAuth:boolean
+
 }
 type MDTPType = {
     addPost: (post:string) => void
@@ -35,7 +38,7 @@ class ProfileContainerAPI extends React.Component<PropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = '1143'
+            userId = this.props.userId
         }
         this.props.getProfile(userId)
         this.props.getStatus(userId)
@@ -51,7 +54,9 @@ class ProfileContainerAPI extends React.Component<PropsType> {
 let MapStateToProps = (state: AppStateType): MSTPType => {
     return ({
             profilePage: state.profilePage,
-            status:state.profilePage.status
+            status:state.profilePage.status,
+            userId:state.auth.id,
+            isAuth:state.auth.isAuth
         }
     )
 }

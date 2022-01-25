@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Redirect} from "react-router-dom";
+import style from '../Common/FormControls/FormControls.module.css'
 
 type PropsType = {}
 
@@ -47,6 +48,9 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <Field type={"checkbox"} name={"rememberMe"} component={Input}/> remember me
             </div>
+            {props.error && <div className={style.groupError}>
+                {props.error}
+            </div>}
             <div>
                 <button>Login</button>
             </div>

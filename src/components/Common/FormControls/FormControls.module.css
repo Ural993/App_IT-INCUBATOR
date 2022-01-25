@@ -7,3 +7,9 @@
 .formControl span{
     color: red;
 }
+
+.groupError{
+    border: 1px solid red;
+    color: red;
+    width: 170px;
+}

@@ -1,19 +1,19 @@
 import {authAPI} from "../api/api";
 import {Dispatch} from "redux";
-import {AxiosError} from "axios";
+import {stopSubmit} from "redux-form";
 
 let SET_USER_DATA = 'SET_USER_DATA'
 
 
 export type InitialAuthStateType = {
-    id: number | null
+    id: string
     email: string
     login: string
     isAuth: boolean
 }
 
 let initialState: InitialAuthStateType = {
-    id: null,
+    id: '',
     email: '',
     login: '',
     isAuth: false,
@@ -36,7 +36,7 @@ type setUserDataACType = {
     type: typeof SET_USER_DATA
     payload: InitialAuthStateType
 }
-export const setUserData = (id:number|null, email:string, login:string, isAuth:boolean): setUserDataACType => ({type: SET_USER_DATA,
+export const setUserData = (id:string, email:string, login:string, isAuth:boolean): setUserDataACType => ({type: SET_USER_DATA,
     payload:{id, email, login, isAuth}})
 
 export const getAuthUserDate =()=>(dispatch:Dispatch)=>{
@@ -55,18 +55,16 @@ export const login =(login:string, password:string, rememberMe=false)=>(dispatch
                 dispatch(getAuthUserDate())
             }
             else {
-                alert(response.data.messages[0])
+                let message = response.data.messages? response.data.messages[0]: "Some error"
+                dispatch(stopSubmit('login', {_error:message}))
             }
-        })
-        .catch((err:AxiosError)=>{
-            console.log(err.message[0])
         })
 }
 export const logout =()=>(dispatch:Dispatch)=>{
     authAPI.logout()
         .then(response => {
             if (response.data.resultCode === 0) {
-                dispatch(setUserData(null, '', '', false))
+                dispatch(setUserData('', '', '', false))
             }
         })
 }
