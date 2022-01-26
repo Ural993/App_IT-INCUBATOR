@@ -22,7 +22,7 @@ export const ProfileInfo = (props: PropsType) => {
             <div>
                 <h3>{props.profile.fullName}</h3>
                 <hr/>
-                <div>Profile in VK:<a href='#'>{props.profile.contacts.vk}</a></div>
+                <div>Profile in VK:<a href={props.profile.contacts.vk}>{props.profile.contacts.vk}</a></div>
                 <div>Profile in facebook: <a href={props.profile.contacts.facebook} target="_blank"
                                              rel="noreferrer">{props.profile.contacts.facebook}</a></div>
                 <div>Profile in instagram: <a href={props.profile.contacts.instagram} target="_blank"

@@ -12,8 +12,8 @@ import {AddMessageFormRedux, FormDataType} from "./AddMessageForm";
 type PropsType = MSTPType & MDTPType
 
 function Dialogs(props: PropsType) {
-    let dialogsMap = props.dialogsPage.dialogs.map((d: any) => <DialogItem name={d.name} id={d.id}/>)
-    let messagesMap = props.dialogsPage.messages.map((m: any) => <Message message={m.message}/>)
+    let dialogsMap = props.dialogsPage.dialogs.map((d: any) => <DialogItem  key={d.id} name={d.name} id={d.id}/>)
+    let messagesMap = props.dialogsPage.messages.map((m: any) => <Message  key ={m.id} message={m.message}/>)
 
     const onClick = (value: FormDataType) => {
         props.addMessage(value.NewMessageBody)

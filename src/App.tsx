@@ -1,35 +1,57 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import {BrowserRouter, Route} from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import UsersContainer from './components/Users/UsersContainer';
-import HeaderContainer from './components/Header/HeaderContainer';
 import {Login} from "./components/Login/Login";
 import ProfileContainer from './components/Profile/ProfileContainer';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
+import {connect} from 'react-redux';
+import {getAuthUserDate} from './redux/auth-reducer';
+import HeaderContainer from './components/Header/HeaderContainer';
+import {initializeApp} from "./redux/app-reducer";
+import {AppStateType} from "./redux/redux-store";
+import {Preloader} from "./components/Common/Preloader/Preloader";
 
-type PropsType={
+type MDTPTypeType = {
+    initializeApp: () => void
+}
+type MSTPType = {
+    initialized: boolean
+}
+type PropsType = MDTPTypeType & MSTPType
 
+class App extends React.Component<PropsType> {
+    componentDidMount() {
+        this.props.initializeApp()
+    }
+
+    render() {
+        if(!this.props.initialized) return <Preloader/>
+        return (
+            <BrowserRouter>
+                <div className="app-wrapper">
+                    <HeaderContainer/>
+                    <Navbar/>
+                    <div className='app-wrapper-content'>
+                        <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                        <Route exact path='/dialogs' render={() => <DialogsContainer/>}/>
+                        <Route exact path='/users' render={() => <UsersContainer/>}/>
+                        <Route exact path='/login' render={() => <Login/>}/>
+                    </div>
+                    <Footer/>
+                </div>
+            </BrowserRouter>
+        );
+    }
+}
+
+const mapStateToProps = (state: AppStateType) => {
+    return {
+        initialized: state.app.initialized
+    }
 }
 
 
-function App(props: PropsType) {
-  return (
-    <BrowserRouter>
-      <div className="app-wrapper">
-        <HeaderContainer />
-        <Navbar />
-        <div className='app-wrapper-content'>
-          <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
-          <Route exact path='/dialogs' render={() => <DialogsContainer />} />
-          <Route exact path='/users' render={() => <UsersContainer />} />
-          <Route exact path='/login' render={() => <Login />} />
-        </div>
-        <Footer />
-      </div>
-    </BrowserRouter>
-  );
-}
-
-export default App;
+export default connect(mapStateToProps, {initializeApp})(App);

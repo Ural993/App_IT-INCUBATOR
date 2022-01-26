@@ -23,7 +23,7 @@ export default function MyPosts(props: PropsType) {
                 <AddPostFormRedux onSubmit={onSubmit}/>
             </div>
             <div className={s.posts}>
-                {props.profilePage.posts.map(p => (<Post {...p}  />))}
+                {props.profilePage.posts.map(p => (<Post key={p.id} {...p}  />))}
             </div>
         </div>
     )

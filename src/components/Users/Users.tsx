@@ -4,7 +4,6 @@ import userPhoto from '../../assets/img/user.jpg'
 import {NavLink} from 'react-router-dom'
 
 
-
 type PropsType = {
     users: Array<UserType>
     pageSize: number
@@ -37,30 +36,33 @@ export const Users = (props: PropsType) => {
             {
                 props.users.map(u => {
                     return <div className={s.users}>
-                        <div className={s.user_img}>
-                            <NavLink to={'/profile/' + u.id}>
-                                <img src={u.photos.small != null ? u.photos.small : userPhoto} alt="#"/>
-                            </NavLink>
-                        </div>
-                        <div className={'user_contant'}>
-                            <div className="name">{u.name}</div>
-                            {u.followed ?
-                                <button disabled={props.followingProgress.some(id => id == u.id)} onClick={() => {
-                                    {
-                                        props.unfollow(u.id)
-
-                                    }
-                                }}>Unfollow</button> :
-                                <button disabled={props.followingProgress.some(id => id == u.id)} onClick={() => {
-                                    {
-                                     props.follow(u.id)
-                                    }
-                                }}>Follow</button>}
-
-                        </div>
-
+                        <User key={u.id} u={u} followingProgress={props.followingProgress}/>
                     </div>
                 })}
         </div>
+    )
+}
+const User = (props:any) => {
+    let u = props.u
+    debugger
+    return (
+        <>
+            <div className={s.user_img}>
+                <NavLink to={'/profile/' + u.id}>
+                    <img src={u.photos.small != null ? u.photos.small : userPhoto} alt="#"/>
+                </NavLink>
+            </div>
+            <div className={'user_contant'}>
+                <div className="name">{u.name}</div>
+                {props.followed ?
+                    <button disabled={props.followingProgress.some((id:string) => id === u.id)} onClick={() => {
+                        props.unfollow(u.id)
+                    }}>Unfollow</button> :
+                    <button disabled={props.followingProgress.some((id:string)  => id === u.id)} onClick={() => {
+                        props.follow(u.id)
+                    }}>Follow</button>}
+            </div>
+        </>
+
     )
 }

@@ -40,6 +40,9 @@ class ProfileContainerAPI extends React.Component<PropsType> {
         if (!userId) {
             userId = this.props.userId
         }
+        if(!userId){
+            this.props.history.push('/login')
+        }
         this.props.getProfile(userId)
         this.props.getStatus(userId)
     }
@@ -65,4 +68,4 @@ let MapStateToProps = (state: AppStateType): MSTPType => {
 export default compose <ComponentType>(connect(MapStateToProps, {
     addPost,getStatus,updateStatus,
     setUserProfile, getProfile
-}), withRouter, withAuthRedirect)(ProfileContainerAPI)
+}), withRouter)(ProfileContainerAPI)

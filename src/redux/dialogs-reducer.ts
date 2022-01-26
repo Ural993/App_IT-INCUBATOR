@@ -1,3 +1,5 @@
+import { v1 } from "uuid"
+
 let ADD_MESSAGE = 'ADD_MESSAGE'
 export type InitialDialogStateType = {
     dialogs: Array<DialogsType>
@@ -5,30 +7,31 @@ export type InitialDialogStateType = {
 }
 type DialogsType = {
     name: string,
-    id: number
+    id: string
 }
 type MessageType = {
-    message: string
+    message: string,
+    id: string
 }
 let initialState: InitialDialogStateType = {
     dialogs: [
-        {name: 'Vovs', id: 1},
-        {name: 'Petr', id: 2},
-        {name: 'Sasha', id: 3},
-        {name: 'Dimich', id: 4}
+        {name: 'Vovs', id: v1()},
+        {name: 'Petr', id: v1()},
+        {name: 'Sasha', id:v1()},
+        {name: 'Dimich', id: v1()}
     ],
     messages: [
-        {message: 'Hi, how are yoy?'},
-        {message: 'Whre are you?'},
-        {message: 'I am fine'}
+        {message: 'Hi, how are yoy?', id: v1()},
+        {message: 'Whre are you?', id: v1()},
+        {message: 'I am fine', id: v1()}
     ]
 }
 
 
 export let dialogsReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
-        case ADD_MESSAGE:{
-            return {...state, messages: [...state.messages, {message: action.message}]}
+        case ADD_MESSAGE: {
+            return {...state, messages: [...state.messages, {message: action.message, id:v1()}]}
         }
 
         default:
