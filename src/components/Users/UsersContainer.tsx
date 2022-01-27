@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import { usersAPI } from '../../api/api'
 import {AppStateType} from '../../redux/redux-store'
 import {
-    follow, getUsers, initialUsersStateType,
+    follow, requestUsers, initialUsersStateType,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
@@ -11,6 +11,14 @@ import {
     unfollow,
     UserType
 } from '../../redux/users-reducer'
+import {
+    getCurrentPage,
+    getFollowingProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from '../../redux/users-selectors'
 import {Preloader} from '../Common/Preloader/Preloader'
 import {Users} from './Users'
 
@@ -79,12 +87,12 @@ class UsersAPIComponent extends React.Component<PropsType> {
 
 const MapStateToProps = (state: AppStateType): initialUsersStateType => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingProgress: state.usersPage.followingProgress
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingProgress: getFollowingProgress(state),
 
     }
 }
@@ -102,7 +110,7 @@ const MapStateToProps = (state: AppStateType): initialUsersStateType => {
 
 const UsersContainer = connect<initialUsersStateType, MDTPType, {}, AppStateType>(MapStateToProps, {
     follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching, 
-    toggleIsFollowingProgress, getUsers})(UsersAPIComponent)
+    toggleIsFollowingProgress, getUsers: requestUsers})(UsersAPIComponent)
 
 
 export default UsersContainer

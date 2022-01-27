@@ -44,7 +44,6 @@ export const Users = (props: PropsType) => {
 }
 const User = (props:any) => {
     let u = props.u
-    debugger
     return (
         <>
             <div className={s.user_img}>
