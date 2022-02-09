@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/App_IT-INCUBATOR/static/css/main.e4445073.chunk.css",
-    "main.js": "/App_IT-INCUBATOR/static/js/main.4e43ba5e.chunk.js",
-    "main.js.map": "/App_IT-INCUBATOR/static/js/main.4e43ba5e.chunk.js.map",
-    "runtime-main.js": "/App_IT-INCUBATOR/static/js/runtime-main.438816ef.js",
-    "runtime-main.js.map": "/App_IT-INCUBATOR/static/js/runtime-main.438816ef.js.map",
-    "static/js/2.c69afae4.chunk.js": "/App_IT-INCUBATOR/static/js/2.c69afae4.chunk.js",
-    "static/js/2.c69afae4.chunk.js.map": "/App_IT-INCUBATOR/static/js/2.c69afae4.chunk.js.map",
-    "static/js/3.01eaab08.chunk.js": "/App_IT-INCUBATOR/static/js/3.01eaab08.chunk.js",
-    "static/js/3.01eaab08.chunk.js.map": "/App_IT-INCUBATOR/static/js/3.01eaab08.chunk.js.map",
+    "main.css": "/App_IT-INCUBATOR/static/css/main.532fb13e.chunk.css",
+    "main.js": "/App_IT-INCUBATOR/static/js/main.fc0831aa.chunk.js",
+    "main.js.map": "/App_IT-INCUBATOR/static/js/main.fc0831aa.chunk.js.map",
+    "runtime-main.js": "/App_IT-INCUBATOR/static/js/runtime-main.f36f5712.js",
+    "runtime-main.js.map": "/App_IT-INCUBATOR/static/js/runtime-main.f36f5712.js.map",
+    "static/js/2.e9e14ab5.chunk.js": "/App_IT-INCUBATOR/static/js/2.e9e14ab5.chunk.js",
+    "static/js/2.e9e14ab5.chunk.js.map": "/App_IT-INCUBATOR/static/js/2.e9e14ab5.chunk.js.map",
+    "static/js/3.a474cd2a.chunk.js": "/App_IT-INCUBATOR/static/js/3.a474cd2a.chunk.js",
+    "static/js/3.a474cd2a.chunk.js.map": "/App_IT-INCUBATOR/static/js/3.a474cd2a.chunk.js.map",
     "index.html": "/App_IT-INCUBATOR/index.html",
-    "static/css/main.e4445073.chunk.css.map": "/App_IT-INCUBATOR/static/css/main.e4445073.chunk.css.map",
-    "static/js/2.c69afae4.chunk.js.LICENSE.txt": "/App_IT-INCUBATOR/static/js/2.c69afae4.chunk.js.LICENSE.txt",
+    "static/css/main.532fb13e.chunk.css.map": "/App_IT-INCUBATOR/static/css/main.532fb13e.chunk.css.map",
+    "static/js/2.e9e14ab5.chunk.js.LICENSE.txt": "/App_IT-INCUBATOR/static/js/2.e9e14ab5.chunk.js.LICENSE.txt",
     "static/media/loader.6bbff2a4.svg": "/App_IT-INCUBATOR/static/media/loader.6bbff2a4.svg",
     "static/media/user.5a5558e5.jpg": "/App_IT-INCUBATOR/static/media/user.5a5558e5.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.438816ef.js",
-    "static/js/2.c69afae4.chunk.js",
-    "static/css/main.e4445073.chunk.css",
-    "static/js/main.4e43ba5e.chunk.js"
+    "static/js/runtime-main.f36f5712.js",
+    "static/js/2.e9e14ab5.chunk.js",
+    "static/css/main.532fb13e.chunk.css",
+    "static/js/main.fc0831aa.chunk.js"
   ]
 }
