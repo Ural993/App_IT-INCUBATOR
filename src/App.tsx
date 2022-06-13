@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {HashRouter, Route} from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
@@ -8,7 +8,6 @@ import {Login} from "./components/Login/Login";
 import ProfileContainer from './components/Profile/ProfileContainer';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import {connect} from 'react-redux';
-import {getAuthUserDate} from './redux/auth-reducer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import {initializeApp} from "./redux/app-reducer";
 import {AppStateType} from "./redux/redux-store";
@@ -28,9 +27,9 @@ class App extends React.Component<PropsType> {
     }
 
     render() {
-        if(!this.props.initialized) return <Preloader/>
+        // if(!this.props.initialized) return <Preloader/>
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <div className="app-wrapper">
                     <HeaderContainer/>
                     <Navbar/>
@@ -42,7 +41,7 @@ class App extends React.Component<PropsType> {
                     </div>
                     <Footer/>
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         );
     }
 }
