@@ -5,6 +5,7 @@ import Post from './Post/Post';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLength30, required} from "../../../utils/validators/validators";
 import { Textarea } from '../../Common/FormControls/FormControls';
+import Button from '../../../commons/components/Button/Button';
 
 type PropsType = {
     profilePage: InitialProfileStateType
@@ -34,7 +35,7 @@ const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <Field component={Textarea} name={'postText'} type="text" validate={[required, maxLength30]}/>
-            <button>Add post</button>
+            <Button type='primary' htmlType='submit'>Add post</Button>
         </form>
     )
 }
