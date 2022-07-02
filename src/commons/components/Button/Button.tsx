@@ -6,8 +6,9 @@ import { EOSComponent } from '../types';
 
 export interface ButtonProps extends BaseButtonProps, EOSComponent {
     type?: 'primary' | 'link' | 'default' | 'text';
-    htmlType?: 'submit';
+    htmlType?: 'submit' | 'button';
     className?: string;
+    title: string
 }
 
 
@@ -15,6 +16,7 @@ const Button: React.FC<ButtonProps> = ({
     type,
     htmlType,
     className = 'eos-btn',
+    title
 }) => {
     const classes = classnames(className)
     return (
@@ -24,7 +26,7 @@ const Button: React.FC<ButtonProps> = ({
             className={classes}
             style={{width:'100px', height:'30px'}}
              > 
-             Button
+             {title}
              </AntdButton>
     )
 }
