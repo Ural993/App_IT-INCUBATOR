@@ -1,20 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MyPosts from './MyPosts/MyPosts';
-import {InitialProfileStateType} from "../../redux/profile-reducer";
+import {getProfileTC, getStatusTC, InitialProfileStateType} from "../../redux/profile-reducer";
 import { ProfileInfo } from './ProfileInfo/ProfileInfo';
+import { RouteComponentProps, useHistory, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppStateType } from '../../redux/redux-store';
 
-type PropsType = {
-    profilePage: InitialProfileStateType
-    addPost: (post:string) => void
+type PathParamType = {
+    userId: string
+}
+interface PropsType extends RouteComponentProps<PathParamType> {
     updateStatus: (status: string) => void
-    status:string
 }
 
 export function Profile(props: PropsType) {
+    const userIdFromState = useSelector<AppStateType, string>((state)=>state.auth.id)
+    const dispatch = useDispatch()
+    // const userId = useParams()
+    // const history = useHistory
+    useEffect(()=>{
+        let userId = props.match.params.userId
+        if (!userId) {
+            userId = userIdFromState
+        }
+        if(!userId){
+            props.history.push('/login')
+        }
+        dispatch(getProfileTC(userId))
+        dispatch(getStatusTC(userId))
+    })
     return (
         <div>
             <ProfileInfo updateStatus={props.updateStatus}/>
-            <MyPosts addPost={props.addPost} profilePage={props.profilePage} />
+            <MyPosts />
         </div>
     )
 }

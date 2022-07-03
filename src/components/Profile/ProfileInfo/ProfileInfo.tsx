@@ -6,8 +6,6 @@ import { AppStateType } from '../../../redux/redux-store';
 import { useDispatch, useSelector } from 'react-redux';
 
 type PropsType = {
-    // profile: ProfileType
-    // status:string
     updateStatus: (status: string) => void
 }
 export const ProfileInfo = (props: PropsType) => {

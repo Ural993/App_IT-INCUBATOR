@@ -7,7 +7,7 @@ import {profileAPI, usersAPI} from "../api/api";
 let ADD_POST = 'ADD_POST'
 let SET_USER_PROFILE = 'SET_USER_PROFILE'
 let GET_STATUS = 'GET_STATUS'
-type PostType = {
+export type PostType = {
     post: string
     id: string
 }
@@ -50,7 +50,7 @@ type AddPostACType = {
     post: string
 }
 
-export function addPost(post: string): AddPostACType {
+export function addPostAC(post: string): AddPostACType {
     return {type: ADD_POST, post}
 }
 
@@ -61,7 +61,7 @@ type setUserProfileACType = {
 export const setUserProfile = (profile: ProfileType): setUserProfileACType => ({type: SET_USER_PROFILE, profile})
 const setStatus = (status: string) => ({type: GET_STATUS, status})
 
-export const getProfile = (userId: string) => {
+export const getProfileTC = (userId: string) => {
     return (dispatch: Dispatch) => {
         usersAPI.getProfile(userId)
             .then(response => {
@@ -69,7 +69,7 @@ export const getProfile = (userId: string) => {
             })
     }
 }
-export const getStatus = (userId: string) => {
+export const getStatusTC = (userId: string) => {
     return (dispatch: Dispatch) => {
         profileAPI.getStatus(userId)
             .then(response => {
@@ -77,7 +77,7 @@ export const getStatus = (userId: string) => {
             })
     }
 }
-export const updateStatus = (status: string) => {
+export const updateStatusTC = (status: string) => {
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status)
             .then(response => {

@@ -1,20 +1,22 @@
 import React from 'react';
-import {InitialProfileStateType} from '../../../redux/profile-reducer';
+import {addPostAC, PostType} from '../../../redux/profile-reducer';
 import s from './MyPosts.module.css'
 import Post from './Post/Post';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLength30, required} from "../../../utils/validators/validators";
 import { Textarea } from '../../Common/FormControls/FormControls';
 import Button from '../../../commons/components/Button/Button';
+import { AppStateType } from '../../../redux/redux-store';
+import { useDispatch, useSelector } from 'react-redux';
 
 type PropsType = {
-    profilePage: InitialProfileStateType
-    addPost: (post:string) => void
 }
 
 export default function MyPosts(props: PropsType) {
+    const posts = useSelector<AppStateType, PostType[]>(state=> state.profilePage.posts)
+    const dispatch = useDispatch()
     const onSubmit = (value: FormDataType) => {
-       props.addPost(value.postText)
+       dispatch(addPostAC(value.postText))
     }
 
     return (
@@ -24,7 +26,7 @@ export default function MyPosts(props: PropsType) {
                 <AddPostFormRedux onSubmit={onSubmit}/>
             </div>
             <div className={s.posts}>
-                {props.profilePage.posts.map(p => (<Post key={p.id} {...p}  />))}
+                {posts.map(p => (<Post key={p.id} {...p}  />))}
             </div>
         </div>
     )
