@@ -35,6 +35,7 @@ type PropsType = RouteComponentProps<PathParamType> & OwnPropsType
 type OwnPropsType = MSTPType & MDTPType
 
 class ProfileContainerAPI extends React.Component<PropsType> {
+    
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {

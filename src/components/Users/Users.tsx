@@ -4,19 +4,9 @@ import userPhoto from '../../assets/img/user.jpg'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCurrentPage, getFollowingProgress, getPageSize, getTotalUsersCount, getUsersSelector } from '../../redux/users-selectors'
-import { setCurrentPage } from '../../redux/users-reducer'
 import { useEffect } from 'react'
 
 type PropsType = {
-    // users: Array<UserType>
-    // pageSize: number
-    // totalUsersCount: number
-    // currentPage: number
-    // followingProgress: Array<number>
-    // follow: (userId: number) => void
-    // unfollow: (userId: number) => void
-    // sentCurrentPageHandler: (currentPage: number) => void
-    // toggleIsFollowingProgress: (followingProgress: boolean, userId: number) => void
 }
 
 export const Users = (props: PropsType) => {

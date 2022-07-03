@@ -1,23 +1,25 @@
-import React, {ComponentType} from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
 import DialogItem from './DialogItem';
 import s from './Dialogs.module.css'
 import Message from './Message';
-import {addMessage, InitialDialogStateType} from "../../redux/dialogs-reducer";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {compose} from 'redux';
+import {addMessageAC, DialogsType, MessageType} from "../../redux/dialogs-reducer";
 import {AddMessageFormRedux, FormDataType} from "./AddMessageForm";
 
-type PropsType = MSTPType & MDTPType
+type PropsType = {}
 
-function Dialogs(props: PropsType) {
-    let dialogsMap = props.dialogsPage.dialogs.map((d: any) => <DialogItem  key={d.id} name={d.name} id={d.id}/>)
-    let messagesMap = props.dialogsPage.messages.map((m: any) => <Message  key ={m.id} message={m.message}/>)
+export function Dialogs(props: PropsType) {
+    const messages = useSelector<AppStateType, MessageType[]>((state)=>state.dialogsPage.messages)
+    const dialogs = useSelector<AppStateType, DialogsType[]>((state)=>state.dialogsPage.dialogs)
+    let dialogsMap = dialogs.map((d: DialogsType) => <DialogItem  key={d.id} name={d.name} id={d.id}/>)
+    let messagesMap = messages.map((m: MessageType) => <Message  key ={m.id} message={m.message}/>)
+    const dispatch = useDispatch()
 
     const onClick = (value: FormDataType) => {
-        props.addMessage(value.NewMessageBody)
+        dispatch(addMessageAC(value.NewMessageBody))
     }
+
 
     return (
         <div className={s.dialogs}>
@@ -31,17 +33,3 @@ function Dialogs(props: PropsType) {
         </div>
     )
 }
-
-let MapStateToProps = (state: AppStateType) => {
-    return {
-        dialogsPage: state.dialogsPage,
-    }
-}
-type MSTPType = {
-    dialogsPage: InitialDialogStateType
-}
-type MDTPType = {
-    addMessage: (message: string) => void
-}
-
-export default compose<ComponentType>(connect(MapStateToProps, {addMessage}), withAuthRedirect)(Dialogs)

@@ -6,7 +6,7 @@ import Footer from './components/Footer/Footer';
 import UsersContainer from './components/Users/UsersContainer';
 import {Login} from "./components/Login/Login";
 import ProfileContainer from './components/Profile/ProfileContainer';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
+import {Dialogs} from './components/Dialogs/DialogsContainer';
 import {connect} from 'react-redux';
 import HeaderContainer from './components/Header/HeaderContainer';
 import {initializeApp} from "./redux/app-reducer";
@@ -35,7 +35,7 @@ class App extends React.Component<PropsType> {
                     <Navbar/>
                     <div className='app-wrapper-content'>
                         <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-                        <Route exact path='/dialogs' render={() => <DialogsContainer/>}/>
+                        <Route exact path='/dialogs' render={() => <Dialogs/>}/>
                         <Route exact path='/users' render={() => <UsersContainer/>}/>
                         <Route exact path='/login' render={() => <Login/>}/>
                     </div>

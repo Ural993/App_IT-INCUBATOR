@@ -9,13 +9,11 @@ type PropsType = {
     updateStatus: (status: string) => void
     status:string
 }
+
 export function Profile(props: PropsType) {
-
-
-
     return (
         <div>
-            <ProfileInfo profile = {props.profilePage.profile} status={props.profilePage.status} updateStatus={props.updateStatus}/>
+            <ProfileInfo updateStatus={props.updateStatus}/>
             <MyPosts addPost={props.addPost} profilePage={props.profilePage} />
         </div>
     )
