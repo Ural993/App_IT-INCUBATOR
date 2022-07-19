@@ -1,8 +1,10 @@
 import { Dispatch } from "redux";
 import { usersAPI } from "../api/api";
 import { PhotoType } from "../components/Common/types/types";
+import { AppStateType } from "./redux-store";
 
 const FOLLOW = 'FOLLOW'
+const SET_FILTER = 'SET_FILTER'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
@@ -17,29 +19,22 @@ export type UserType = {
     photos: PhotoType
     followed: boolean
 }
-export type initialUsersStateType = {
-    users: Array<UserType>
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean
-    followingProgress: Array<number>
-}
 
-let initialState: initialUsersStateType = {
-    users: [
-        // { id: 1, followed: true, fullName: 'Nik', age: 14, photoUrl: 'https://pixelbox.ru/wp-content/uploads/2021/05/ava-vk-animal-91.jpg', status: 'I like drive', location: { city: 'Moscow', country: 'Russia' } },
-        // { id: 2, followed: false, fullName: 'Solo', age: 27, photoUrl: 'https://pixelbox.ru/wp-content/uploads/2021/05/ava-vk-animal-91.jpg', status: 'I am love Susen', location: { city: 'Orel', country: 'Russia' } },
-        // { id: 3, followed: true, fullName: 'Dimich', age: 33, photoUrl: 'https://pixelbox.ru/wp-content/uploads/2021/05/ava-vk-animal-91.jpg', status: 'I like programming', location: { city: 'Minsk', country: 'Belarus' } },
 
-    ],
-    pageSize: 5,
+let initialState = {
+    users: [] as Array<UserType>,
+    pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingProgress: [],
-
+    followingProgress: [] as Array<number>,
+    filter: {
+        term: '',
+        friend: null as null | boolean
+    }
 }
+export type initialUsersStateType = typeof initialState
+export type FilterType = typeof initialState.filter
 
 export const usersReducer = (state = initialState, action: ActionsType): initialUsersStateType => {
     switch (action.type) {
@@ -72,6 +67,9 @@ export const usersReducer = (state = initialState, action: ActionsType): initial
         case SET_TOTAL_USERS_COUNT: {
             return { ...state, totalUsersCount: action.totalUsersCount }
         }
+        case SET_FILTER: {
+            return { ...state, filter: action.payload }
+        }
         case TOGGLE_IS_FETCHING: {
             return { ...state, isFetching: action.isFetching }
         }
@@ -92,7 +90,7 @@ type ActionsType =
     | SetCurrentPageACType
     | SetTotalUsersCountACType
     | ToggleIsFetchingACType
-    | ToggleIsFollowingProgressACType
+    | ToggleIsFollowingProgressACType | SetFilterACType
 
 type FollowACType = {
     type: typeof FOLLOW
@@ -122,6 +120,15 @@ export const setTotalUsersCount = (totalUsersCount: number): SetTotalUsersCountA
     type: SET_TOTAL_USERS_COUNT,
     totalUsersCount
 })
+
+type SetFilterACType = {
+    type: typeof SET_FILTER
+    payload: FilterType
+}
+export const setFilter = (filter: FilterType): SetFilterACType => ({
+    type: SET_FILTER,
+    payload: filter
+})
 type ToggleIsFetchingACType = {
     type: typeof TOGGLE_IS_FETCHING
     isFetching: boolean
@@ -141,10 +148,12 @@ export const toggleIsFollowingProgress = (followingProgress: boolean, userId: nu
     userId
 })
 
-export const requestUsers = (currentPage: number, pageSize: number) => {
+export const requestUsers = (currentPage: number, pageSize: number, filter: FilterType) => {
+    debugger
     return (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true))
-        usersAPI.getUsers(currentPage, pageSize).then((data: any) => {
+        dispatch(setFilter(filter))
+        usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend).then((data: any) => {
             dispatch(toggleIsFetching(false))
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
@@ -179,10 +188,12 @@ export const unfollow = (userId: any) => {
 
 
 export const sentCurrentPageTC = (currentPage: number, pageSize: number = 10) => {
-    return (dispatch: Dispatch) => {
+    debugger
+    return (dispatch: Dispatch, getState: () => AppStateType) => {
+        let term = getState().usersPage.filter.term
         dispatch(setCurrentPage(currentPage))
         dispatch(toggleIsFetching(true))
-        usersAPI.getUsers(currentPage, pageSize)
+        usersAPI.getUsers(currentPage, pageSize, term)
             .then((data: any) => {
                 dispatch(toggleIsFetching(false))
                 dispatch(setUsers(data.items))
