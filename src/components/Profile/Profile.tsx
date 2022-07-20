@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import MyPosts from './MyPosts/MyPosts';
-import {getProfileTC, getStatusTC, InitialProfileStateType} from "../../redux/profile-reducer";
+import { getProfileTC, getStatusTC } from "../../redux/profile-reducer";
 import { ProfileInfo } from './ProfileInfo/ProfileInfo';
-import { RouteComponentProps, useHistory, useParams } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStateType } from '../../redux/redux-store';
 
@@ -14,16 +14,14 @@ interface PropsType extends RouteComponentProps<PathParamType> {
 }
 
 export function Profile(props: PropsType) {
-    const userIdFromState = useSelector<AppStateType, string>((state)=>state.auth.id)
+    const userIdFromState = useSelector<AppStateType, string>((state) => state.auth.id)
     const dispatch = useDispatch()
-    // const userId = useParams()
-    // const history = useHistory
-    useEffect(()=>{
+    useEffect(() => {
         let userId = props.match.params.userId
         if (!userId) {
             userId = userIdFromState
         }
-        if(!userId){
+        if (!userId) {
             props.history.push('/login')
         }
         dispatch(getProfileTC(userId))
@@ -31,7 +29,7 @@ export function Profile(props: PropsType) {
     })
     return (
         <div>
-            <ProfileInfo updateStatus={props.updateStatus}/>
+            <ProfileInfo updateStatus={props.updateStatus} />
             <MyPosts />
         </div>
     )

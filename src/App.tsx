@@ -11,7 +11,6 @@ import {connect} from 'react-redux';
 import HeaderContainer from './components/Header/HeaderContainer';
 import {initializeApp} from "./redux/app-reducer";
 import {AppStateType} from "./redux/redux-store";
-import {Preloader} from "./components/Common/Preloader/Preloader";
 
 type MDTPTypeType = {
     initializeApp: () => void

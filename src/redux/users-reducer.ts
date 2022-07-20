@@ -153,6 +153,7 @@ export const requestUsers = (currentPage: number, pageSize: number, filter: Filt
     return (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true))
         dispatch(setFilter(filter))
+        dispatch(setCurrentPage(currentPage))
         usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend).then((data: any) => {
             dispatch(toggleIsFetching(false))
             dispatch(setUsers(data.items))

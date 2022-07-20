@@ -11,7 +11,6 @@ type PropsType = {
 export const ProfileInfo = (props: PropsType) => {
     const profile = useSelector<AppStateType, ProfileType>(state=> state.profilePage.profile)
     const status = useSelector<AppStateType, string>(state=> state.profilePage.status)
-    const dispatch = useDispatch()
     if (!profile) {
         return <Preloader/>
     }

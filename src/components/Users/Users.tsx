@@ -1,10 +1,9 @@
 import { FilterType, requestUsers, sentCurrentPageTC } from '../../redux/users-reducer'
 import s from './Users.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCurrentPage, getFilter, getFollowingProgress, getPageSize, getTotalUsersCount, getUsers, getUsersSelector } from '../../redux/users-selectors'
+import { getCurrentPage, getFilter, getFollowingProgress, getPageSize, getTotalUsersCount, getUsersSelector } from '../../redux/users-selectors'
 import { useEffect } from 'react'
 import { User } from './User'
-import { Formik } from 'formik'
 import { UsersSearchForm } from './UsersSearchForm'
 import { useHistory } from 'react-router-dom'
 const queryString = require('query-string');
@@ -27,15 +26,8 @@ export const Users = (props: PropsType) => {
     const sentCurrentPageHandler = (p: any) => {
         dispatch(sentCurrentPageTC(p))
     }
-    // useEffect(() => {
-    //     history.push({
-    //         pathname: '/users',
-    //         search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
-    //     })
-    // }, [filter, currentPage])
 
     useEffect(() => {
-        debugger
         const parsed = queryString.parse(history.location.search.substr(1))
 
         let actualPage = currentPage
@@ -43,10 +35,17 @@ export const Users = (props: PropsType) => {
 
         if (!!parsed.page) actualPage = Number(parsed.page)
         if (!!parsed.term) actualFilter = { ...actualFilter, term: parsed.term }
-        if (!!parsed.friend) actualFilter = { ...actualFilter, friend: parsed.friend }
+        if (!!parsed.friend) actualFilter = { ...actualFilter, friend: parsed.friend === 'null' ? null : parsed.friend === 'true' ? true : false}
 
         dispatch(requestUsers(actualPage, pageSize, actualFilter))
     }, [])
+
+    useEffect(() => {
+        history.push({
+            pathname: '/users',
+            search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+        })
+    }, [filter, currentPage])
 
     let pagesCount = Math.ceil(totalUsersCount / pageSize)
     let pages = []

@@ -1,6 +1,3 @@
-import {authAPI} from "../api/api";
-import {Dispatch} from "redux";
-import {stopSubmit} from "redux-form";
 import {getAuthUserDate} from "./auth-reducer";
 
 let SET_INITIALIZED = 'SET_INITIALIZED'

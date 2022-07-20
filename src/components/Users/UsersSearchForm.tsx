@@ -1,20 +1,19 @@
-import { FilterType, requestUsers, sentCurrentPageTC } from '../../redux/users-reducer'
-import s from './Users.module.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { getCurrentPage, getFollowingProgress, getPageSize, getTotalUsersCount, getUsers, getUsersSelector } from '../../redux/users-selectors'
-import { useEffect } from 'react'
-import { User } from './User'
+import { FilterType } from '../../redux/users-reducer'
+import { useSelector } from 'react-redux'
+import { getFilter} from '../../redux/users-selectors'
 import { Field, Form, Formik } from 'formik'
 
 type UserSearchFormType = {
     onFilterChanged: (filter: FilterType) => void
 }
-
+type FriendType = 'null' | 'true' | 'false'
 type FormType = {
     term: string
-    friend: 'null' | 'true' | 'false'
+    friend: FriendType
 }
 export const UsersSearchForm = (props: UserSearchFormType) => {
+    const filter = useSelector(getFilter)
+
     const submit = (values: FormType) => {
         const filter: FilterType = {
             term: values.term,
@@ -26,8 +25,9 @@ export const UsersSearchForm = (props: UserSearchFormType) => {
     return (
         <div>
             <Formik
-                initialValues={{ term: '', friend: 'null' }}
+                initialValues={{ term: filter.term, friend: String(filter.friend) as FriendType }}
                 onSubmit={submit}
+                enableReinitialize
             >
                 {({
                     isSubmitting,
